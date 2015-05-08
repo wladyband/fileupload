@@ -1,0 +1,77 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+</h:head>
+
+
+<h:body>
+
+	<style media="screen" type="text/css">
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+</style>
+
+	<p:tabMenu activeIndex="1">
+		<p:menuitem value="Add user" url="/index.jsf" />
+		<p:menuitem value="View users" url="/viewUser.jsf" />
+
+	</p:tabMenu>
+
+	<h:form id="form">
+		<p:panel header="Users">
+			<p:dataTable value="#{rBean.users}" var="user"
+				selection="#{rBean.selectedUser}" selectionMode="single"
+				rowKey="#{user.id}">
+				<p:column headerText="user ">
+				#{user.username}
+				</p:column>
+
+				<p:column headerText="address ">
+				#{user.address}
+				</p:column>
+
+				<p:column headerText="photo name ">
+				#{user.photoId.photoName}
+				</p:column>
+
+				<p:column headerText="photo ">
+					<p:graphicImage value="#{imgBean.image}" height="100" width="150">
+						<f:param value="#{user.photoId.photoId}" name="photo_id"></f:param>
+
+					</p:graphicImage>
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+		<p:commandButton value="View Full image" onclick="imgWidget.show()"
+			update=":form:imgPanel"></p:commandButton>
+		<p:commandButton id="downloadLink" value="Download" ajax="false"
+			icon="ui-icon-arrowthichk-s">
+			<p:fileDownload value="#{rBean.content}" />
+		</p:commandButton>
+
+		<p:dialog id="img" header="Basic Dialog" widgetVar="imgWidget"
+			dynamic="true" height="400" width="400">
+			<p:outputPanel id="imgPanel">
+				<p:graphicImage value="#{imgBean.image}">
+					<f:param value="#{rBean.selectedUser.photoId.photoId}"
+						name="photo_id"></f:param>
+				</p:graphicImage>
+			</p:outputPanel>
+
+		</p:dialog>
+
+
+
+	</h:form>
+
+</h:body>
+</html>

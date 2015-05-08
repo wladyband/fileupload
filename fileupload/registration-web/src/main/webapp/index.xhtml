@@ -1,0 +1,59 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+</h:head>
+
+
+<h:body>
+
+	<style media="screen" type="text/css">
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+</style>
+
+	<p:tabMenu activeIndex="0">
+		<p:menuitem value="Add user" url="/index.jsf" />
+		<p:menuitem value="View users" url="/viewUser.jsf" />
+
+	</p:tabMenu>
+
+	<h:form>
+		<p:panel header="Add user">
+			<h:panelGrid columns="2">
+				<h:outputText value="User name:" />
+				<p:inputText value="#{rBean.name}"></p:inputText>
+
+				<h:outputText value="User Address:" />
+				<p:inputText value="#{rBean.address}"></p:inputText>
+
+				<h:outputText value="Add Photo:" />
+				<p:commandButton onclick="fileDialogWidget.show()"
+					value="Upload Photo"></p:commandButton>
+
+			</h:panelGrid>
+
+		</p:panel>
+		<p:separator>
+		</p:separator>
+		<p:commandButton value="Add user" actionListener="#{rBean.addUser}" ></p:commandButton>
+
+
+		<p:dialog id="fileDialog" header="Basic Dialog"
+			widgetVar="fileDialogWidget">
+			<p:fileUpload fileUploadListener="#{rBean.handleFileUpload}" oncomplete="fileDialogWidget.hide()"
+				mode="advanced" dragDropSupport="false" fileLimit="1"
+				allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+		</p:dialog>
+
+
+	</h:form>
+
+</h:body>
+</html>
